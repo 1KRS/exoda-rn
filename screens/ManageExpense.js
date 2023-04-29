@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants/styles';
 import Button from '../components/UI/Button';
@@ -17,13 +17,13 @@ const ManageExpense = ({ route, navigation }) => {
   }, [navigation, isEditing]);
 
   const deleteExpenseHandler = () => {
-    console.log('Ζουλιήχτκε κι αυτουό');
+    navigation.goBack();
   };
   const cancelHandler = () => {
-    console.log('Ζουλιήχτκε κι αυτουό');
+    navigation.goBack();
   };
   const confirmHandler = () => {
-    console.log('Ζουλιήχτκε κι αυτουό');
+    navigation.goBack();
   };
 
   return (
@@ -32,7 +32,9 @@ const ManageExpense = ({ route, navigation }) => {
         <Button style={styles.button} mode="flat" onPress={cancelHandler}>
           Cancel
         </Button>
-        <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
+        <Button style={styles.button} onPress={confirmHandler}>
+          {isEditing ? 'Update' : 'Add'}
+        </Button>
       </View>
       {isEditing && (
         <View style={styles.deleteContainer}>
