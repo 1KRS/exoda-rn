@@ -1,15 +1,16 @@
 import { Text, View } from 'react-native';
 
 const ExpensesSummary = ({ expenses, expensesPeriod }) => {
-
-const expensesSum = expenses.reduce((sum, expense)=> {
-  return sum + expense.amount
-}, 0)
+  const expensesSum = expenses.reduce((sum, expense) => {
+    return sum + expense.amount;
+  }, 0);
 
   return (
     <View>
       <Text>
-        {expensesPeriod === 1
+        {expensesPeriod === 'Σύνολο'
+          ? 'Σύνολο'
+          : expensesPeriod === 1
           ? 'Προηγούμενη ημέρα'
           : `Τελευταίες ${expensesPeriod} ημέρες`}
       </Text>
