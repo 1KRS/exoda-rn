@@ -5,11 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 
 const Colors = GlobalStyles.colors;
 
-const ExpenseItem = ({ description, date, amount }) => {
+const ExpenseItem = ({ id, description, date, amount }) => {
   const navigation = useNavigation();
 
   const expensePressHandler = () => {
-    navigation.navigate('ManageExpense');
+    navigation.navigate('ManageExpense', {
+      expenseId: id
+    });
   };
 
   return (
