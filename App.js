@@ -28,7 +28,7 @@ const ExpensesOverview = () => {
             color={tintColor}
             size={24}
             onPress={() => {
-              navigation.navigate('ManageExpense')
+              navigation.navigate('ManageExpense');
               console.log('Ζουλιήχτκε');
             }}
           />
@@ -66,13 +66,26 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Colors.primary500,
+            },
+            headerTintColor: 'white',
+          }}
+        >
           <Stack.Screen
             name="ExpensesOverview"
             component={ExpensesOverview}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="ManageExpense" component={ManageExpense} />
+          <Stack.Screen
+            name="ManageExpense"
+            component={ManageExpense}
+            options={{
+              presentation: 'modal',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
