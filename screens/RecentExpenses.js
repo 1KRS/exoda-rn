@@ -1,4 +1,4 @@
-import ExpensesOutput from '../components/ExpensesOutput';
+import { ExpensesOutput } from '../components';
 
 const RecentExpenses = () => {
   return <ExpensesOutput expensesPeriod={'7'} />;

@@ -1,8 +1,6 @@
-import ExpensesOutput from '../components/ExpensesOutput';
+import { ExpensesOutput } from '../components';
 
 const AllExpenses = () => {
-  return (
-    <ExpensesOutput expensesPeriod={'Σύνολο'}/>
-  );
+  return <ExpensesOutput expensesPeriod={'Σύνολο'} />;
 };
 export default AllExpenses;
