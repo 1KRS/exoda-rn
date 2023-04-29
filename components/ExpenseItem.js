@@ -4,12 +4,19 @@ import { getFormattedDate } from '../util/date';
 
 const Colors = GlobalStyles.colors;
 
+const expensePressHandler = () => {};
+
 const ExpenseItem = ({ description, date, amount }) => {
   return (
-    <Pressable>
+    <Pressable
+      onPress={expensePressHandler}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.expenseItem}>
         <View>
-          <Text style={[styles.textBase, styles.description]}>{description}</Text>
+          <Text style={[styles.textBase, styles.description]}>
+            {description}
+          </Text>
           <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
         </View>
         <View style={styles.amountContainer}>
@@ -54,5 +61,8 @@ const styles = StyleSheet.create({
   amount: {
     color: Colors.primary500,
     fontWeight: 'bold',
-  }
+  },
+  pressed: {
+    opacity: 0.75,
+  },
 });

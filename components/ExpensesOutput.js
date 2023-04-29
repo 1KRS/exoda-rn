@@ -5,7 +5,6 @@ import { GlobalStyles } from '../constants/styles';
 
 const Colors = GlobalStyles.colors;
 
-
 const DUMMY_EXPENSES = [
   {
     id: 'e1',
@@ -64,7 +63,7 @@ const ExpensesOutput = ({ expenses, expensesPeriod }) => {
         expenses={DUMMY_EXPENSES}
         expensesPeriod={expensesPeriod}
       />
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      <ExpensesList expenses={DUMMY_EXPENSES}  />
     </View>
   );
 };
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 24,
     paddingHorizontal: 24,
-    backgroundColor: Colors.primary700
-  }
-})
+    backgroundColor: Colors.primary700,
+  },
+  
+});
