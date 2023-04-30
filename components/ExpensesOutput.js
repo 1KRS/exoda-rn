@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary700,
   },
   text: {
-    marginTop: 15,
+    marginTop: 25,
     color: Colors.accent500,
     textAlign: 'center',
+    fontSize: 20,
     fontWeight: 'bold'
   },
 });
