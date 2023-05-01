@@ -1,4 +1,5 @@
 export const getFormattedDate = (date) => {
+  console.log('Date', date)
   return date.toLocaleDateString();
 };
 
