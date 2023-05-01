@@ -20,7 +20,8 @@ const amountChangeHandler = () => {
 
       }}/>
       <Input label="Date" textInputConfig={{
-        
+        multiline: true,
+        autoCapitalize: 'words'
       }}/>
     </View>
   );
