@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Button from '../UI/Button';
 import Input from './Input';
 import { useState } from 'react';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
   const [inputValues, setInputValues] = useState({
     amount: '',
     date: '',
@@ -16,6 +17,23 @@ const ExpenseForm = () => {
         [inputIdentifier]: enteredValue,
       };
     });
+  };
+
+  const confirmHandler = (amount, date, description) => {
+    if (isEditing) {
+      expensesCtx.updateExpense(id, {
+        amount: 32.99,
+        date: new Date(),
+        description: 'Αλλαγή',
+      });
+    } else {
+      expensesCtx.addExpense({
+        amount: 19.99,
+        date: new Date(),
+        description: 'Καινούργιο',
+      });
+    }
+    navigation.goBack();
   };
 
   return (
@@ -51,6 +69,14 @@ const ExpenseForm = () => {
           value: inputValues.description,
         }}
       />
+      <View style={styles.buttons}>
+        <Button style={styles.button} mode="flat" onPress={onCancel}>
+          Cancel
+        </Button>
+        <Button style={styles.button} >
+          {submitButtonLabel}
+        </Button>
+      </View>
     </View>
   );
 };
@@ -74,5 +100,14 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
 });
