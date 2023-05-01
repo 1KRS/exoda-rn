@@ -2,6 +2,9 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import Button from '../UI/Button';
 import Input from './Input';
 import { useState } from 'react';
+import { GlobalStyles } from '../../constants/styles';
+
+const Colors = GlobalStyles.colors;
 
 const ExpenseForm = ({
   submitButtonLabel,
@@ -12,15 +15,15 @@ const ExpenseForm = ({
   const [inputs, setInputs] = useState({
     amount: {
       value: defaultValue ? defaultValue.amount.toString() : '',
-      isValid: true, 
+      isValid: true,
     },
     date: {
       value: defaultValue ? defaultValue.date.toISOString().slice(0, 10) : '',
-      isValid: true
+      isValid: true,
     },
     description: {
       value: defaultValue ? defaultValue.description : '',
-      isValid: true
+      isValid: true,
     },
   });
 
@@ -96,6 +99,7 @@ const ExpenseForm = ({
       <View style={styles.inputsRow}>
         <Input
           label="Amount"
+          invalid={!inputs.amount.isValid}
           textInputConfig={{
             keyboardType: 'decimal-pad',
             onChangeText: inputChangeHandler.bind(this, 'amount'),
@@ -105,6 +109,7 @@ const ExpenseForm = ({
         />
         <Input
           label="Date"
+          invalid={!inputs.date.isValid}
           textInputConfig={{
             // placeholder: 'DD/MM/YYYY',
             placeholder: 'YYYY-MM-DD',
@@ -117,6 +122,7 @@ const ExpenseForm = ({
       </View>
       <Input
         label="Description"
+        invalid={!inputs.description.isValid}
         textInputConfig={{
           multiline: true,
           autoCapitalize: 'words',
@@ -124,7 +130,11 @@ const ExpenseForm = ({
           value: inputs.description.value,
         }}
       />
-      {formIsInvalid && <Text style={styles.errorText}>Invalid input! Please check your information!</Text>}
+      {formIsInvalid && (
+        <Text style={styles.errorText}>
+          Invalid input! Please check your information!
+        </Text>
+      )}
       <View style={styles.buttons}>
         <Button style={styles.button} mode="flat" onPress={onCancel}>
           Cancel
@@ -166,4 +176,12 @@ const styles = StyleSheet.create({
     minWidth: 120,
     marginHorizontal: 8,
   },
+  errorText: {
+    textAlign: 'center',
+    color: Colors.error500,
+    marginBottom: 8,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+
 });
