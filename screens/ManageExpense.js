@@ -2,7 +2,6 @@ import { useContext, useLayoutEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants/styles';
-import Button from '../components/UI/Button';
 import { ExpensesContext } from '../store/expenses-context';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 
@@ -29,19 +28,11 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const confirmHandler = (amount, date, description) => {
+  const confirmHandler = (expenseData) => {
     if (isEditing) {
-      expensesCtx.updateExpense(id, {
-        amount: 32.99,
-        date: new Date(),
-        description: 'Αλλαγή',
-      });
+      expensesCtx.updateExpense(id, expenseData);
     } else {
-      expensesCtx.addExpense({
-        amount: 19.99,
-        date: new Date(),
-        description: 'Καινούργιο',
-      });
+      expensesCtx.addExpense(expenseData);
     }
     navigation.goBack();
   };
@@ -51,7 +42,7 @@ const ManageExpense = ({ route, navigation }) => {
       <ExpenseForm
         submitButtonLabel={isEditing ? 'Αλλαγή' : 'Προσθήκη'}
         onCancel={cancelHandler}
-        // onSubmit={confirmHandler}
+        onSubmit={confirmHandler}
       />
 
       {isEditing && (

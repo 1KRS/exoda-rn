@@ -11,29 +11,39 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
   });
 
   const inputChangeHandler = (inputIdentifier, enteredValue) => {
-    setInputValues((curInputValues) => {
-      return {
-        ...curInputValues,
-        [inputIdentifier]: enteredValue,
-      };
-    });
+    // if (inputIdentifier === 'date') {
+    //   console.log('EV', enteredValue);
+    //   console.log(typeof enteredValue);
+    //   const dateArray = enteredValue.split('/');
+    //   const day = dateArray[0];
+    //   const month = dateArray[1];
+    //   const year = dateArray[2];
+    //   const reformedDate = year + '-' + month + '-' + day;
+    //   console.log('RD', reformedDate);
+    //   console.log(typeof enteredValue);
+    //   setInputValues((curInputValues) => {
+    //     return {
+    //       ...curInputValues,
+    //       [inputIdentifier]: reformedDate,
+    //     };
+    //   });
+    // } else {
+      setInputValues((curInputValues) => {
+        return {
+          ...curInputValues,
+          [inputIdentifier]: enteredValue,
+        };
+      });
+    // }
   };
 
-  const confirmHandler = (amount, date, description) => {
-    if (isEditing) {
-      expensesCtx.updateExpense(id, {
-        amount: 32.99,
-        date: new Date(),
-        description: 'Αλλαγή',
-      });
-    } else {
-      expensesCtx.addExpense({
-        amount: 19.99,
-        date: new Date(),
-        description: 'Καινούργιο',
-      });
-    }
-    navigation.goBack();
+  const submitHandler = () => {
+    const expenseData = {
+      amount: +inputValues.amount.replace(',', '.'), //to '+' μετατρέπει το κείμενο σε αριθμό
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+    onSubmit(expenseData);
   };
 
   return (
@@ -52,7 +62,8 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
         <Input
           label="Date"
           textInputConfig={{
-            placeholder: 'DD/MM/YYYY',
+            // placeholder: 'DD/MM/YYYY',
+            placeholder: 'YYYY-MM-DD',
             maxLength: 10,
             onChangeText: inputChangeHandler.bind(this, 'date'),
             value: inputValues.date,
@@ -73,7 +84,7 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
         <Button style={styles.button} mode="flat" onPress={onCancel}>
           Cancel
         </Button>
-        <Button style={styles.button} >
+        <Button style={styles.button} onPress={submitHandler}>
           {submitButtonLabel}
         </Button>
       </View>
