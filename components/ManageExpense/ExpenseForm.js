@@ -2,27 +2,32 @@ import { View } from 'react-native';
 import Input from './Input';
 
 const ExpenseForm = () => {
-const amountChangeHandler = () => {
-  
-}
-
+  const amountChangeHandler = () => {};
 
   return (
     <View>
-      <Input label="Description" textInputConfig={{
-        keyboardType: 'decimal-pad',
-        onChangeText: amountChangeHandler,
-      }}/>
-      <Input label="Amount" textInputConfig={{
-        placeholder: 'DD/MM/YYYY',
-        maxLength: 10,
-        onChangeText: () => {},
-
-      }}/>
-      <Input label="Date" textInputConfig={{
-        multiline: true,
-        autoCapitalize: 'words'
-      }}/>
+      <Input
+        label="Date"
+        textInputConfig={{
+          placeholder: 'DD/MM/YYYY',
+          maxLength: 10,
+          onChangeText: () => {},
+        }}
+      />
+      <Input
+        label="Amount"
+        textInputConfig={{
+          keyboardType: 'decimal-pad',
+          onChangeText: amountChangeHandler,
+        }}
+      />
+      <Input
+        label="Description"
+        textInputConfig={{
+          multiline: true,
+          autoCapitalize: 'words',
+        }}
+      />
     </View>
   );
 };
