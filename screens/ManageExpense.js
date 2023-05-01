@@ -11,7 +11,7 @@ const ManageExpense = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
 
   const id = route.params?.expenseId;
-  const isEditing = !!id;
+  const isEditing = !!id; //Ίδιο με το   id ? true : false,
 
   const selectedExpense = expensesCtx.expenses.find(expense => expense.id === id)
 
