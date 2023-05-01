@@ -29,18 +29,18 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const confirmHandler = () => {
+  const confirmHandler = ( amount, date, description ) => {
     if (isEditing) {
       expensesCtx.updateExpense(id, {
-        description: 'Αλλαγή',
         amount: 32.99,
         date: new Date(),
+        description: 'Αλλαγή',
       });
     } else {
       expensesCtx.addExpense({
-        description: 'Καινούργιο',
         amount: 19.99,
         date: new Date(),
+        description: 'Καινούργιο',
       });
     }
     navigation.goBack();
