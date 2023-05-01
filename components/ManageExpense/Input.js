@@ -3,42 +3,41 @@ import { GlobalStyles } from '../../constants/styles';
 
 const Colors = GlobalStyles.colors;
 
-const Input = ({label, textInputConfig}) => {
+const Input = ({ label, textInputConfig, style }) => {
+  let inputStyles = [styles.input];
 
-let inputStyles = [styles.input]
-
-if (textInputConfig && textInputConfig.multiline) {
-  inputStyles.push(styles.inputMultiline)
-}
+  if (textInputConfig && textInputConfig.multiline) {
+    inputStyles.push(styles.inputMultiline);
+  }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput {...textInputConfig} style={inputStyles}/>
+      <TextInput {...textInputConfig} style={inputStyles} />
     </View>
   );
 };
 export default Input;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     marginHorizontal: 4,
     marginVertical: 8,
   },
-  label:{
+  label: {
     fontSize: 16,
     color: Colors.primary100,
-    marginBottom: 4
+    marginBottom: 4,
   },
-  input:{
+  input: {
     backgroundColor: Colors.primary100,
     color: Colors.primary700,
     padding: 6,
     borderRadius: 6,
     fontSize: 18,
   },
-  inputMultiline:{
+  inputMultiline: {
     minHeight: 100,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
-})
+});
