@@ -6,11 +6,14 @@ import { ExpensesContext } from '../store/expenses-context';
 import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 import { addExpense, deleteExpense, updateExpense } from '../util/http';
 import LoadingOverlay from '../components/UI/LoadingOverlay';
+import ErrorOverlay from '../components/UI/ErrorOverlay';
 
 const Colors = GlobalStyles.colors;
 
 const ManageExpense = ({ route, navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState();
+
   const expensesCtx = useContext(ExpensesContext);
 
   const id = route.params?.expenseId;
@@ -28,10 +31,14 @@ const ManageExpense = ({ route, navigation }) => {
 
   const deleteExpenseHandler = async () => {
     setIsSubmitting(true);
-    await deleteExpense(id);
-    setIsSubmitting(false);
-    expensesCtx.deleteExpense(id);
-    navigation.goBack();
+    try {
+      await deleteExpense(id);
+      expensesCtx.deleteExpense(id);
+      navigation.goBack();
+    } catch (error) {
+      setError('Could not delete expense!');
+      setIsSubmitting(false);
+    }
   };
 
   const cancelHandler = () => {
@@ -40,18 +47,30 @@ const ManageExpense = ({ route, navigation }) => {
 
   const confirmHandler = async (expenseData) => {
     setIsSubmitting(true);
-    if (isEditing) {
-      await updateExpense(id, expenseData);
-      setIsSubmitting(false);
-      expensesCtx.updateExpense(id, expenseData);
-    } else {
-      const id = await addExpense(expenseData);
-      setIsSubmitting(false);
-      expensesCtx.addExpense({ ...expenseData, id: id });
+    try {
+      if (isEditing) {
+        await updateExpense(id, expenseData);
+        expensesCtx.updateExpense(id, expenseData);
+        navigation.goBack();
+      } else {
+        const id = await addExpense(expenseData);
+        expensesCtx.addExpense({ ...expenseData, id: id });
+        navigation.goBack();
+      }
+    } catch (error) {
+      if (isEditing) {
+        setError('Could not update expense!');
+        setIsSubmitting(false);
+      } else {
+        setError('Could not add expense!');
+        setIsSubmitting(false);
+      }
     }
-    navigation.goBack();
   };
 
+  if (error && !isSubmitting) {
+    return <ErrorOverlay message={error} />;
+  }
   if (isSubmitting) {
     return <LoadingOverlay />;
   }
