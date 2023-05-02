@@ -29,3 +29,12 @@ export const fetchExpenses = async () => {
   }
   return expenses;
 };
+
+export const updateExpense = (id, expenseData) => {
+  return axios.put(`${BACKEND_ROOT_URL}/expenses/${id}.json`, expenseData);
+};
+
+export const deleteExpense = (id) => {
+  return axios.delete(`${BACKEND_ROOT_URL}/expenses/${id}.json`);
+
+};
