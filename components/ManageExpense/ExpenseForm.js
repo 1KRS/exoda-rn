@@ -28,30 +28,27 @@ const ExpenseForm = ({
   });
 
   const inputChangeHandler = (inputIdentifier, enteredValue) => {
-    // if (inputIdentifier === 'date') {
-    //   console.log('EV', enteredValue);
-    //   console.log(typeof enteredValue);
-    //   const dateArray = enteredValue.split('/');
-    //   const day = dateArray[0];
-    //   const month = dateArray[1];
-    //   const year = dateArray[2];
-    //   const reformedDate = year + '-' + month + '-' + day;
-    //   console.log('RD', reformedDate);
-    //   console.log(typeof enteredValue);
-    //   setInputs((curInputs) => {
-    //     return {
-    //       ...curInputs,
-    //       [inputIdentifier]: reformedDate,
-    //     };
-    //   });
-    // } else {
-    setInputs((curInputs) => {
-      return {
-        ...curInputs,
-        [inputIdentifier]: { value: enteredValue, isValid: true },
-      };
-    });
-    // }
+    if (inputIdentifier === 'date') {
+      const dateArray = enteredValue.split('/');
+      const day = dateArray[0];
+      const month = dateArray[1];
+      const year = dateArray[2];
+      // const reformedDate = year + '-' + month + '-' + day;
+      const newDate = new Date(year + '-' + month + '-' + day);
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          [inputIdentifier]: { value: newDate, isValid: true },
+        };
+      });
+    } else {
+      setInputs((curInputs) => {
+        return {
+          ...curInputs,
+          [inputIdentifier]: { value: enteredValue, isValid: true },
+        };
+      });
+    }
   };
 
   const submitHandler = () => {
@@ -111,8 +108,8 @@ const ExpenseForm = ({
           label="Date"
           invalid={!inputs.date.isValid}
           textInputConfig={{
-            // placeholder: 'DD/MM/YYYY',
-            placeholder: 'YYYY-MM-DD',
+            placeholder: 'DD/MM/YYYY',
+            // placeholder: 'YYYY-MM-DD',
             maxLength: 10,
             onChangeText: inputChangeHandler.bind(this, 'date'),
             value: inputs.date.value,
@@ -183,5 +180,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
-
 });

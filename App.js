@@ -30,7 +30,6 @@ const ExpensesOverview = () => {
             size={24}
             onPress={() => {
               navigation.navigate('ManageExpense');
-              console.log('Ζουλιήχτκε');
             }}
           />
         ),
