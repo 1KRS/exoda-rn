@@ -18,7 +18,7 @@ const ExpenseForm = ({
       isValid: true,
     },
     date: {
-      value: defaultValue ? defaultValue.date.toISOString().slice(0, 10) : '',
+      value: defaultValue ? defaultValue.date.toLocaleDateString().slice(0, 10) : '',
       isValid: true,
     },
     description: {

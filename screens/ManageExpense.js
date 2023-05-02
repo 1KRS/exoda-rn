@@ -14,7 +14,9 @@ const ManageExpense = ({ route, navigation }) => {
   const id = route.params?.expenseId;
   const isEditing = !!id; //Ίδιο με το   id ? true : false,
 
-  const selectedExpense = expensesCtx.expenses.find(expense => expense.id === id)
+  const selectedExpense = expensesCtx.expenses.find(
+    (expense) => expense.id === id
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,12 +33,12 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const confirmHandler = (expenseData) => {
+  const confirmHandler = async (expenseData) => {
     if (isEditing) {
       expensesCtx.updateExpense(id, expenseData);
     } else {
-      addExpense(expenseData);
-      expensesCtx.addExpense(expenseData);
+      const id = await addExpense(expenseData);
+      expensesCtx.addExpense({ ...expenseData, id: id });
     }
     navigation.goBack();
   };

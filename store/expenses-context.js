@@ -51,7 +51,6 @@ import { createContext, useReducer, useState } from 'react';
 //   },
 // ];
 
-
 export const ExpensesContext = createContext({
   expenses: [],
   setExpenses: (expenses) => {},
@@ -63,11 +62,11 @@ export const ExpensesContext = createContext({
 const expensesReducer = (state, action) => {
   switch (action.type) {
     case 'SET':
-      return action.payload;
+      const invertedData = action.payload.reverse();
+      return invertedData;
 
     case 'ADD':
-      const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id: id }, ...state];
+      return [action.payload, ...state];
 
     case 'UPDATE':
       const expenseIndex = state.findIndex(
