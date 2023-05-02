@@ -17,7 +17,7 @@ export const fetchExpenses = async () => {
     const expenseObj = {
       id: key,
       amount: expense.amount,
-      date: new Date(expense.date).toLocale(),
+      date: new Date(expense.date),
       description: expense.description,
     };
     expenses.push(expenseObj);

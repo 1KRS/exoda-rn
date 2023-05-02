@@ -6,10 +6,11 @@ import { fetchExpenses } from '../util/http';
 
 const RecentExpenses = () => {
   const expensesCtx = useContext(ExpensesContext);
-
+  
   useEffect(() => {
     const getExpenses = async () => {
       const expenses = await fetchExpenses();
+      expensesCtx.setExpenses(expenses)
     };
 
     getExpenses()

@@ -33,7 +33,6 @@ const ExpenseForm = ({
       const day = dateArray[0];
       const month = dateArray[1];
       const year = dateArray[2];
-      // const reformedDate = year + '-' + month + '-' + day;
       const newDate = new Date(year + '-' + month + '-' + day);
       setInputs((curInputs) => {
         return {
@@ -109,7 +108,6 @@ const ExpenseForm = ({
           invalid={!inputs.date.isValid}
           textInputConfig={{
             placeholder: 'DD/MM/YYYY',
-            // placeholder: 'YYYY-MM-DD',
             maxLength: 10,
             onChangeText: inputChangeHandler.bind(this, 'date'),
             value: inputs.date.value,

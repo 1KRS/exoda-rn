@@ -1,58 +1,60 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useState } from 'react';
 
-const DUMMY_EXPENSES = [
-  {
-    id: 'e1',
-    description: 'Υποδήματα',
-    amount: 85.99,
-    date: new Date('2023-01-12'),
-  },
-  {
-    id: 'e2',
-    description: 'Μάθημα Σουηδικών',
-    amount: 20,
-    date: new Date('2023-01-14'),
-  },
-  {
-    id: 'e3',
-    description: 'Ωρολόι',
-    amount: 1078.97,
-    date: new Date('2023-06-10'),
-  },
-  {
-    id: 'e4',
-    description: 'Ταξίδι',
-    amount: 454,
-    date: new Date('2023-07-14'),
-  },
-  {
-    id: 'e5',
-    description: 'Ταβέρνα',
-    amount: 120,
-    date: new Date('2023-07-20'),
-  },
-  {
-    id: 'e6',
-    description: 'Βιβλίο',
-    amount: 17.99,
-    date: new Date('2023-07-21'),
-  },
-  {
-    id: 'e7',
-    description: 'Ταβέρνα',
-    amount: 120,
-    date: new Date('2023-07-22'),
-  },
-  {
-    id: 'e8',
-    description: 'Βιβλίο',
-    amount: 17.99,
-    date: new Date('2023-07-23'),
-  },
-];
+// const DUMMY_EXPENSES = [
+//   {
+//     id: 'e1',
+//     description: 'Υποδήματα',
+//     amount: 85.99,
+//     date: new Date('2023-01-12'),
+//   },
+//   {
+//     id: 'e2',
+//     description: 'Μάθημα Σουηδικών',
+//     amount: 20,
+//     date: new Date('2023-01-14'),
+//   },
+//   {
+//     id: 'e3',
+//     description: 'Ωρολόι',
+//     amount: 1078.97,
+//     date: new Date('2023-06-10'),
+//   },
+//   {
+//     id: 'e4',
+//     description: 'Ταξίδι',
+//     amount: 454,
+//     date: new Date('2023-07-14'),
+//   },
+//   {
+//     id: 'e5',
+//     description: 'Ταβέρνα',
+//     amount: 120,
+//     date: new Date('2023-07-20'),
+//   },
+//   {
+//     id: 'e6',
+//     description: 'Βιβλίο',
+//     amount: 17.99,
+//     date: new Date('2023-07-21'),
+//   },
+//   {
+//     id: 'e7',
+//     description: 'Ταβέρνα',
+//     amount: 120,
+//     date: new Date('2023-07-22'),
+//   },
+//   {
+//     id: 'e8',
+//     description: 'Βιβλίο',
+//     amount: 17.99,
+//     date: new Date('2023-07-23'),
+//   },
+// ];
+
 
 export const ExpensesContext = createContext({
   expenses: [],
+  setExpenses: (expenses) => {},
   addExpense: ({ description, amount, date }) => {},
   deleteExpense: (id) => {},
   updateExpense: (id, { description, amount, date }) => {},
@@ -60,6 +62,9 @@ export const ExpensesContext = createContext({
 
 const expensesReducer = (state, action) => {
   switch (action.type) {
+    case 'SET':
+      return action.payload;
+
     case 'ADD':
       const id = new Date().toString() + Math.random().toString();
       return [{ ...action.payload, id: id }, ...state];
@@ -82,7 +87,11 @@ const expensesReducer = (state, action) => {
 };
 
 const ExpensesContextProvider = ({ children }) => {
-  const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);
+  const [expensesState, dispatch] = useReducer(expensesReducer, []);
+
+  const setExpenses = (expenses) => {
+    dispatch({ type: 'SET', payload: expenses });
+  };
 
   const addExpense = (expenseData) => {
     dispatch({ type: 'ADD', payload: expenseData });
@@ -98,6 +107,7 @@ const ExpensesContextProvider = ({ children }) => {
 
   const value = {
     expenses: expensesState,
+    setExpenses: setExpenses,
     addExpense: addExpense,
     updateExpense: updateExpense,
     deleteExpense: deleteExpense,
@@ -110,4 +120,4 @@ const ExpensesContextProvider = ({ children }) => {
   );
 };
 
-export default ExpensesContextProvider
+export default ExpensesContextProvider;
